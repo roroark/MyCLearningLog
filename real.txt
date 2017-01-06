@@ -1,0 +1,9 @@
+Things picked up along the way...
+
+On Executing files...
+Refering to http://stackoverflow.com/questions/19628460/how-do-i-run-c-program-without-using
+Every local executable executed with ./
+To remove ./ before execution, add it to the 'Environment Variable' 'PATH'
+PATH specifies the list of directories where executables are located. More: https://en.wikipedia.org/wiki/Environment_variable
+To edit PATH, follow these: http://hathaway.cc/post/69201163472/how-to-edit-your-path-environment-variables-on-mac
+Remember to follow up with source ~/.bash_profile
