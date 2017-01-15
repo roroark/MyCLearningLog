@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 int main (int argc, char *argv[]) {
   void nextp(char *);
   if (argc == 1)
@@ -18,7 +19,7 @@ int main (int argc, char *argv[]) {
 void nextp(char *input) {
   //12:3,45 -> 123,54 -> 12435 -> 12453 -> 12534 -> 12,543
   //Find the first non-decreasing term from the right
-  int strlen(char *), length = strlen(input);
+  int str_length(char *), length = str_length(input);
   int lengthIndex1 = length, lengthIndex2 = length;
   //Reduce Length to appropriate size
   for (--lengthIndex1; lengthIndex1 > 0 && input[lengthIndex1-1] >= input[lengthIndex1]; --lengthIndex1);
@@ -31,9 +32,9 @@ void nextp(char *input) {
 
     //Swap these terms (Note the decreasing order is preserved)
     //Invert or sort the decreasing terms
-    void swapchar(char *, char *), strrev(char *);
-    swapchar(input + lengthIndex1 - 1, input + lengthIndex2);
-    strrev(input + lengthIndex1);
+    void swap_char(char *, char *), str_reverse(char *);
+    swap_char(input + lengthIndex1 - 1, input + lengthIndex2);
+    str_reverse(input + lengthIndex1);
   } else {
     printf("%s is the last permutation.", input);
     //Make it so that the printf statement in main can't print %s as it is an
