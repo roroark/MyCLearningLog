@@ -4,4 +4,10 @@ This repository contains the things I did when learning C.
 I have worked on the following micro projects:<br>
 1. Next Permutation of a string: source/nextp.c<br>
 2. An executable "sysc" that executes its command-line arguments: source/sysc.c<br>
-3. Modify "sysc" to "timex" to time the execution. Remaining functionality remaining the same.<br>
+3. Modify "sysc" to "timex" to time the execution (using clock_t clock()): source/timex.c<br>
+4. Modify "timex" to "avtex" to time the execution n times, specified by the argument immediately after the -n flag [10 default].
+
+<!-- Variadic and Callback Functions [Under Construction]
+4. Timing various sorts on Random Input [Scheduled]
+5. Multithreaded Merge Sort [Scheduled]
+6. Google Search API [Scheduled] -->

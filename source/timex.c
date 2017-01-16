@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#define CLOCK_TO_MILI 1000
 #define CHARLIMIT 200
 int main(int argc, char *argv[]) {
   if (argc == 1) printf("Usage: timex executable_name [command line args]\n");
@@ -26,11 +27,13 @@ int main(int argc, char *argv[]) {
     printf("timex: executing \"%s\"\n", command);
     clock_t clock(void);
     clock_t initClock = clock();
-    system(command);
-
-    clock_t finalClock = clock();
-    clock_t delta = finalClock - initClock;
-    printf("timex: execution took: %.4f ms\n", ((double)delta)/1000);
-    return 0;
+    int failedToExecute = system(command);
+    if (!failedToExecute) {
+      clock_t finalClock = clock();
+      clock_t delta = finalClock - initClock;
+      printf("timex: execution took: %.4f ms\n", ((double)delta)/CLOCK_TO_MILI);
+      return 0;
+    }
+    else return failedToExecute;
   }
 }
