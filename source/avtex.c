@@ -3,8 +3,8 @@
 #include<time.h>
 #define and &&
 #define or ||
-// #define CLOCK_TO_MILI 1000
-// #define CHARLIMIT 200
+#define CLOCK_TO_MILI 1000
+#define CHARLIMIT 200
 void print_usage(void) {
   printf(
   "Usage: avtex [flags] executable_name [command line args]\n"
@@ -70,29 +70,42 @@ int main(int argc, char *argv[]) {
         CUSTOM_COUNT_TAKEN = 1;
       }
     }
-    if (argc) --argv, ++argv;
-    printf("Custom: %d Surpress: %d\n", FLAG_CUSTOM_ITERATION, FLAG_SURPRESS_OUTPUT);
-    if (CUSTOM_COUNT_TAKEN) printf("Custom Iteration Count: %d\n", iteration_count);
+    if (argc) --argv, ++argc;
+    // printf("Custom: %d Surpress: %d\n", FLAG_CUSTOM_ITERATION, FLAG_SURPRESS_OUTPUT);
+    // if (CUSTOM_COUNT_TAKEN) printf("Custom Iteration Count: %d\n", iteration_count);
 
-    // int str_length(char *);
-    // register int currentArgumentLength=0, currentBufferLength=0;
-    // void str_copy_at(char * source, char * destination, long offsetFromStart);
-    // char command[CHARLIMIT];
-    // char space[] = " ";
-    // while (--argc) {
-    //   // Add space at the end.
-    //   currentArgumentLength = str_length(*++argv);
-    //   if (currentBufferLength + currentBufferLength > 200) {
-    //     printf("Error: Command should have less than %d characters.\n", CHARLIMIT);
-    //     return 2;
-    //   }
-    //   str_copy_at(*argv, command, currentBufferLength);
-    //   str_copy_at(space, command,  currentBufferLength + currentArgumentLength);
-    //   currentBufferLength += currentArgumentLength + 1;
-    // }
-    // //Remove last space
-    // command[currentBufferLength - 1] = '\0';
-    // printf("timex: executing \"%s\"\n", command);
+    int str_length(char *);
+    register int currentArgumentLength=0, currentBufferLength=0;
+    void str_copy_at(char * source, char * destination, long offsetFromStart);
+    char command[CHARLIMIT];
+    char space[] = " ";
+    while (--argc) {
+      // Add space at the end.
+      currentArgumentLength = str_length(*++argv);
+      if (currentBufferLength + currentBufferLength > 200) {
+        printf("Error: Command should have less than %d characters.\n", CHARLIMIT);
+        return -1;
+      }
+      str_copy_at(*argv, command, currentBufferLength);
+      str_copy_at(space, command,  currentBufferLength + currentArgumentLength);
+      currentBufferLength += currentArgumentLength + 1;
+    }
+    //Remove last space
+    --currentBufferLength;
+    command[currentBufferLength] = '\0';
+
+    char surpress[] = " > /dev/null";
+    if (FLAG_SURPRESS_OUTPUT) {
+      int extra = str_length(surpress);
+      if (currentBufferLength + extra > 200) {
+        printf("Error: Command should have less than %d characters.\n", CHARLIMIT);
+        return -1;
+      }
+      void str_append(char * source, char * destination);
+      str_append(surpress, command);
+      currentBufferLength += extra;
+    }
+    printf("avtex: executing \"%s\" %d times.\n", command, iteration_count);
     // clock_t clock(void);
     // clock_t initClock = clock();
     // int failedToExecute = system(command);
