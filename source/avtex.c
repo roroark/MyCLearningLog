@@ -106,15 +106,32 @@ int main(int argc, char *argv[]) {
       currentBufferLength += extra;
     }
     printf("avtex: executing \"%s\" %d times.\n", command, iteration_count);
-    // clock_t clock(void);
-    // clock_t initClock = clock();
-    // int failedToExecute = system(command);
-    // clock_t finalClock = clock();
-    // if (!failedToExecute) {
-    //   clock_t delta = finalClock - initClock;
-    //   printf("timex: execution took: %.4f ms\n", ((double)delta)/CLOCK_TO_MILI);
-    //   return 0;
-    // }
-    // else return failedToExecute;
+    double *iteration_results = (double *) malloc(sizeof(double) * iteration_count);
+    for (int i=0; i<iteration_count; ++i) {
+      clock_t clock(void);
+      clock_t initClock = clock();
+      int failedToExecute = system(command);
+      clock_t finalClock = clock();
+      if (!failedToExecute) {
+        clock_t delta = finalClock - initClock;
+        iteration_results[i] = ((double)delta)/CLOCK_TO_MILI;
+        printf("avtex: execution %d took: %.4f ms\n", i+1,  iteration_results[i]);
+      }
+      else return failedToExecute;
+    }
+    double sum(double *, long), average(double *, long), stdev(double *, long);
+    //Results
+    printf(
+      "\n"
+      "avtex: total execution time       : %.4f ms\n"
+      "avtex: average execution time     : %.4f ms\n"
+      "avtex: deviation in execution time: %.4f ms\n"
+      "\n"
+      ,
+      sum (iteration_results, iteration_count),
+      average(iteration_results, iteration_count),
+      stdev(iteration_results, iteration_count)
+
+  );
   }
 }
